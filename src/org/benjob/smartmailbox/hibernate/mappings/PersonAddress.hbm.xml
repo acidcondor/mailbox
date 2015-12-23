@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
- <class name="org.benjob.smartmailbox.model.PersonAddresses" table="PERSON_ADDRESSES">
+ <class name="org.benjob.smartmailbox.model.PersonAddress" table="PERSON_ADDRESSES">
   <id column="ID" name="id" type="long">
    <generator class="native">
     <param name="sequence">PERSON_ADDRESSES_SEQ</param>
@@ -12,8 +12,11 @@
    column="PERSON_ID" name="Person"/>
   <many-to-one class="org.benjob.smartmailbox.model.Address"
    column="ADDRESS_ID" name="Address"/>
-  <property column="IS_OWNER" name="isOwner" type="boolean"/>
-  <property column="START_DATE" name="StartDate" type="date"/>
-  <property column="END_DATE" name="EndDate" type="date"/>
+  <property column="IS_OWNER" generated="never" lazy="false"
+   name="isOwner" type="boolean"/>
+  <property column="START_DATE" generated="never" lazy="false"
+   name="StartDate" type="date"/>
+  <property column="END_DATE" generated="never" lazy="false"
+   name="EndDate" type="date"/>
  </class>
 </hibernate-mapping>

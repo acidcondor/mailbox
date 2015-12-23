@@ -1,11 +1,7 @@
 package org.benjob.smartmailbox.rest;
 
-import java.util.List;
-
-import org.benjob.smartmailbox.bo.PersonBo;
+import org.benjob.smartmailbox.bo.AddressBo;
 import org.benjob.smartmailbox.model.Address;
-import org.benjob.smartmailbox.model.Person;
-import org.benjob.smartmailbox.model.PersonAddress;
 import org.benjob.smartmailbox.model.Status;
 import org.benjob.smartmailbox.rest.exceptions.InternalErrorException;
 import org.benjob.smartmailbox.rest.exceptions.ResourceNotFoundException;
@@ -19,16 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/person")
-public class PersonService {
-
-    @Autowired
-    PersonBo personBo;
-
+@RequestMapping("/address")
+public class AddressService {
+	
+	@Autowired
+    AddressBo addressBo;
+	
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Person addPerson(@RequestBody Person person) {
+    public @ResponseBody Address addPerson(@RequestBody Address person) {
         try {
-            personBo.create(person);
+            addressBo.create(person);
         } catch (Exception e) {
         	throw new InternalErrorException();
         }
@@ -37,47 +33,29 @@ public class PersonService {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody Person getPerson(@PathVariable("id") long id) {
-        Person person = null;
+    public @ResponseBody Address getAddress(@PathVariable("id") long id) {
+    	Address address = null;
         try {
-            person = personBo.getById(id);
+        	address = addressBo.getById(id);
         } catch (Exception e) {
             throw new InternalErrorException();
         }
         
-        if ( person == null ) {
+        if ( address == null ) {
         	throw new ResourceNotFoundException();
         }
         
-        return person;
+        return address;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public @ResponseBody Status deleteEmployee(@PathVariable("id") long id) {
         try {
-            personBo.delete(id);
-            return new Status(1, "Person deleted Successfully!");
+            addressBo.delete(id);
+            return new Status(1, "Address deleted Successfully!");
         } catch (Exception e) {
             return new Status(0, e.toString());
         }
-    }
-    
-    @RequestMapping(value = "/{id}/assignAddress/{address_id}", method = RequestMethod.GET)
-    public @ResponseBody PersonAddress assignAddress(@PathVariable("id") long id, @PathVariable("address_id") long address_id) {
-        try {
-            PersonAddress personAddress = personBo.assignAddress(id, address_id);
-            return personAddress;
-        } catch (Exception e) {
-            throw new InternalErrorException();
-        }
-    }
-    
-    @RequestMapping(value = "/{id}/addresses", method = RequestMethod.GET)
-    public @ResponseBody List<Address> getAddressed(@PathVariable("id") long id) {
-        try {
-            return personBo.getAddresses(id);
-        } catch (Exception e) {
-            throw new InternalErrorException();
-        }
+
     }
 }

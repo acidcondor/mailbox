@@ -5,12 +5,18 @@
     
     <bean id="personBo" class="org.benjob.smartmailbox.bo.PersonBoImpl">
         <property name="mainDao" ref="personDao" />
+        <property name="addressDao" ref="addressDao" />
+        <property name="personAddressDao" ref="personAddressDao" />
         
         <!-- According to the doc, I should NOT need this... http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/beans.html#beans-factory-scopes-other-injection -->
         <aop:scoped-proxy proxy-target-class="false" />
     </bean>
 
     <bean id="personDao" class="org.benjob.smartmailbox.dao.PersonDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="personAddressDao" class="org.benjob.smartmailbox.dao.PersonAddressDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 

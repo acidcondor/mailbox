@@ -16,6 +16,7 @@
    name="LastName" type="string"/>
   <property column="PHONE_NUMBER" generated="never" lazy="false"
    name="PhoneNumber" type="string"/>
-  <property column="KEY" generated="never" lazy="false" name="Key" type="string"/>
+  <property column="PUBLIC_KEY" generated="never" lazy="false"
+   name="Key" type="string"/>
  </class>
 </hibernate-mapping>
