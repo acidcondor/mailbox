@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="org.benjob.smartmailbox.model.Address" table="ADDRESSES">
+  <id column="ID" name="id" type="long">
+   <generator class="native">
+    <param name="sequence">ADDRESSES_SEQ</param>
+   </generator>
+  </id>
+  <property column="STREET" generated="never" lazy="false" name="Street" type="string"/>
+  <property column="CITY" generated="never" lazy="false" name="City" type="string"/>
+  <property column="STATE" generated="never" lazy="false" name="State" type="string"/>
+  <property column="ZIP_CODE" generated="never" lazy="false"
+   name="ZipCode" type="integer"/>
+  <property column="UNIT" generated="never" lazy="false" name="Unit" type="string"/>
+  <property column="COUNTRY" generated="never" lazy="false"
+   name="Country" type="string"/>
+  <property column="MAILBOX_ADDRESS" generated="never" lazy="false"
+   name="MailBoxAddress" type="string"/>
+ </class>
+</hibernate-mapping>

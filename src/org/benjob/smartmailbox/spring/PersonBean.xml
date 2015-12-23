@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+    <bean id="personBo" class="org.benjob.smartmailbox.bo.PersonBoImpl">
+        <property name="mainDao" ref="personDao" />
+        
+        <!-- According to the doc, I should NOT need this... http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/beans.html#beans-factory-scopes-other-injection -->
+        <aop:scoped-proxy proxy-target-class="false" />
+    </bean>
+
+    <bean id="personDao" class="org.benjob.smartmailbox.dao.PersonDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+</beans>

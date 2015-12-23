@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="org.benjob.smartmailbox.model.Person" table="PERSONS">
+  <id column="ID" name="id" type="long">
+   <generator class="native">
+    <param name="sequence">PERSONS_SEQ</param>
+   </generator>
+  </id>
+  <property column="FIRSTNAME" generated="never" lazy="false"
+   name="FirstName" type="string"/>
+  <property column="MIDDLENAME" generated="never" lazy="false"
+   name="MiddleName" type="string"/>
+  <property column="LASTNAME" generated="never" lazy="false"
+   name="LastName" type="string"/>
+  <property column="PHONE_NUMBER" generated="never" lazy="false"
+   name="PhoneNumber" type="string"/>
+  <property column="KEY" generated="never" lazy="false" name="Key" type="string"/>
+ </class>
+</hibernate-mapping>
