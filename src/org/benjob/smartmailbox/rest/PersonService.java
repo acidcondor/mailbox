@@ -3,7 +3,6 @@ package org.benjob.smartmailbox.rest;
 import java.util.List;
 
 import org.benjob.smartmailbox.bo.PersonBo;
-import org.benjob.smartmailbox.model.Address;
 import org.benjob.smartmailbox.model.Person;
 import org.benjob.smartmailbox.model.PersonAddress;
 import org.benjob.smartmailbox.model.Status;
@@ -72,8 +71,18 @@ public class PersonService {
         }
     }
     
+    @RequestMapping(value = "/{id}/unassignAddress/{address_id}", method = RequestMethod.GET)
+    public @ResponseBody Status unassignAddress(@PathVariable("id") long id, @PathVariable("address_id") long address_id) {
+        try {
+            personBo.unassignAddress(id, address_id);
+            return new Status(1, "Address unassigned Successfully!");
+        } catch (Exception e) {
+            return new Status(0, e.toString());
+        }
+    }
+    
     @RequestMapping(value = "/{id}/addresses", method = RequestMethod.GET)
-    public @ResponseBody List<Address> getAddressed(@PathVariable("id") long id) {
+    public @ResponseBody List<PersonAddress> getAddresses(@PathVariable("id") long id) {
         try {
             return personBo.getAddresses(id);
         } catch (Exception e) {

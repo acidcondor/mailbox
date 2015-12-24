@@ -12,26 +12,11 @@
         <org.hibernate.version>4.3.10.Final</org.hibernate.version>
         <org.hibernate.common.annotations.version>4.0.5.Final</org.hibernate.common.annotations.version>
         <org.hibernate.validator>4.3.2.Final</org.hibernate.validator>
-        <org.springframework.bom.version>4.1.6.RELEASE</org.springframework.bom.version>
+        <org.springframework.bom.version>4.2.4.RELEASE</org.springframework.bom.version>
         <org.jackson.version>1.9.13</org.jackson.version>
   </properties>
   
   <dependencies>
-        <!-- 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>provided</scope>
-            <version>${mysql.connector.version}</version>
-        </dependency>
-        -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>provided</scope>
-            <version>${postgre.connector.version}</version>
-        </dependency>
-        <!--  
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -53,29 +38,33 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${org.springframework.bom.version}</version>
         </dependency>
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework.bom.version}</version>
         </dependency>
+        <!--  
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-rest-webmvc</artifactId>
             <version>2.4.2.RELEASE</version>
         </dependency>
+        -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${org.hibernate.version}</version>
-        </dependency>
-        <!--  
+        </dependency> 
         <dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.3.1</version>
 		</dependency>
-		-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate4</artifactId>
+            <version>2.3.1</version>
+        </dependency>
 		<dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>

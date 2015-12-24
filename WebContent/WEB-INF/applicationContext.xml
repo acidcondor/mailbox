@@ -13,5 +13,13 @@
     <import resource="classes/org/benjob/smartmailbox/spring/AddressBean.xml" />
 
     <context:component-scan base-package="org.benjob.smartmailbox.rest" /> 
-    <mvc:annotation-driven />   
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.benjob.smartmailbox.hibernate.HibernateAwareObjectMapper"/>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>   
 </beans>

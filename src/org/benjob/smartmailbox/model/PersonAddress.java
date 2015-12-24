@@ -16,17 +16,17 @@ public class PersonAddress implements java.io.Serializable {
     private long id;
     private Person Person;
     private Address Address;
-    private Boolean isOwner;
+    private Boolean Owner;
     private Date StartDate;
     private Date EndDate;
 
     public PersonAddress() {
     }
 
-    public PersonAddress(Person Person, Address Address, Boolean isOwner, Date StartDate, Date EndDate) {
+    public PersonAddress(Person Person, Address Address, Boolean Owner, Date StartDate, Date EndDate) {
         this.Person = Person;
         this.Address = Address;
-        this.isOwner = isOwner;
+        this.Owner = Owner;
         this.StartDate = StartDate;
         this.EndDate = EndDate;
     }
@@ -55,12 +55,12 @@ public class PersonAddress implements java.io.Serializable {
         this.Address = Address;
     }
 
-    public Boolean isIsOwner() {
-        return this.isOwner;
+    public Boolean isOwner() {
+        return this.Owner;
     }
 
-    public void setIsOwner(boolean isOwner) {
-        this.isOwner = isOwner;
+    public void setOwner(boolean isOwner) {
+        this.Owner = isOwner;
     }
 
     public Date getStartDate() {

@@ -13,7 +13,7 @@
   <many-to-one class="org.benjob.smartmailbox.model.Address"
    column="ADDRESS_ID" name="Address"/>
   <property column="IS_OWNER" generated="never" lazy="false"
-   name="isOwner" type="boolean"/>
+   name="Owner" type="boolean"/>
   <property column="START_DATE" generated="never" lazy="false"
    name="StartDate" type="date"/>
   <property column="END_DATE" generated="never" lazy="false"
