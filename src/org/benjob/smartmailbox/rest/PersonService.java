@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.benjob.smartmailbox.bo.PersonBo;
 import org.benjob.smartmailbox.model.Person;
-import org.benjob.smartmailbox.model.PersonAddress;
+import org.benjob.smartmailbox.model.PersonMailbox;
 import org.benjob.smartmailbox.model.Status;
 import org.benjob.smartmailbox.rest.exceptions.InternalErrorException;
 import org.benjob.smartmailbox.rest.exceptions.ResourceNotFoundException;
@@ -25,7 +25,7 @@ public class PersonService {
     PersonBo personBo;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Person addPerson(@RequestBody Person person) {
+    public @ResponseBody Person createPerson(@RequestBody Person person) {
         try {
             personBo.create(person);
         } catch (Exception e) {
@@ -61,30 +61,38 @@ public class PersonService {
         }
     }
     
-    @RequestMapping(value = "/{id}/assignAddress/{address_id}", method = RequestMethod.GET)
-    public @ResponseBody PersonAddress assignAddress(@PathVariable("id") long id, @PathVariable("address_id") long address_id) {
+    @RequestMapping(value = "/{id}/assignPrimaryMailbox/{mailbox_id}", method = RequestMethod.GET)
+    public @ResponseBody PersonMailbox assignPrimaryMailbox(@PathVariable("id") long id, @PathVariable("mailbox_id") long mailbox_id) {
         try {
-            PersonAddress personAddress = personBo.assignAddress(id, address_id);
-            return personAddress;
+            return personBo.assignPrimaryMailbox(id, mailbox_id);
         } catch (Exception e) {
             throw new InternalErrorException();
         }
     }
     
-    @RequestMapping(value = "/{id}/unassignAddress/{address_id}", method = RequestMethod.GET)
-    public @ResponseBody Status unassignAddress(@PathVariable("id") long id, @PathVariable("address_id") long address_id) {
+    @RequestMapping(value = "/{id}/assignSecondaryMailbox/{mailbox_id}", method = RequestMethod.GET)
+    public @ResponseBody PersonMailbox assignSecondaryMailbox(@PathVariable("id") long id, @PathVariable("mailbox_id") long mailbox_id) {
         try {
-            personBo.unassignAddress(id, address_id);
+            return personBo.assignSecondaryMailbox(id, mailbox_id);
+        } catch (Exception e) {
+            throw new InternalErrorException();
+        }
+    }
+    
+    @RequestMapping(value = "/{id}/unassignMailbox/{mailbox_id}", method = RequestMethod.GET)
+    public @ResponseBody Status unassignMailbox(@PathVariable("id") long id, @PathVariable("mailbox_id") long mailbox_id) {
+        try {
+            personBo.unassignMailbox(id, mailbox_id);
             return new Status(1, "Address unassigned Successfully!");
         } catch (Exception e) {
             return new Status(0, e.toString());
         }
     }
     
-    @RequestMapping(value = "/{id}/addresses", method = RequestMethod.GET)
-    public @ResponseBody List<PersonAddress> getAddresses(@PathVariable("id") long id) {
+    @RequestMapping(value = "/{id}/mailboxes", method = RequestMethod.GET)
+    public @ResponseBody List<PersonMailbox> getMailboxes(@PathVariable("id") long id) {
         try {
-            return personBo.getAddresses(id);
+            return personBo.getMailboxes(id);
         } catch (Exception e) {
             throw new InternalErrorException();
         }

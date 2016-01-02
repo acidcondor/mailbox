@@ -9,8 +9,10 @@
     <import resource="classes/org/benjob/smartmailbox/spring/Hibernate.xml" />
 
     <!-- Beans Declaration -->
-    <import resource="classes/org/benjob/smartmailbox/spring/PersonBean.xml" />
     <import resource="classes/org/benjob/smartmailbox/spring/AddressBean.xml" />
+    <import resource="classes/org/benjob/smartmailbox/spring/MailboxBean.xml" />
+    <import resource="classes/org/benjob/smartmailbox/spring/ParcelBean.xml" />
+    <import resource="classes/org/benjob/smartmailbox/spring/PersonBean.xml" />
 
     <context:component-scan base-package="org.benjob.smartmailbox.rest" /> 
     <mvc:annotation-driven>

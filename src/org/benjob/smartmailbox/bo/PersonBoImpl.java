@@ -3,77 +3,80 @@ package org.benjob.smartmailbox.bo;
 import java.util.Date;
 import java.util.List;
 
-import org.benjob.smartmailbox.dao.AddressDao;
-import org.benjob.smartmailbox.dao.PersonAddressDao;
+import org.benjob.smartmailbox.dao.MailboxDao;
+import org.benjob.smartmailbox.dao.PersonMailboxDao;
 import org.benjob.smartmailbox.dao.PersonDao;
 import org.benjob.smartmailbox.model.Person;
-import org.benjob.smartmailbox.model.PersonAddress;
-import org.benjob.smartmailbox.model.Address;
+import org.benjob.smartmailbox.model.PersonMailbox;
+import org.benjob.smartmailbox.model.Mailbox;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public class PersonBoImpl extends BaseBoImpl<Person, PersonDao> implements PersonBo {
 
-	AddressDao addressDao;
+	MailboxDao mailboxDao;
+	PersonMailboxDao personMailboxDao;
 	
-	PersonAddressDao personAddressDao;
-	
-	public void setAddressDao( AddressDao addressDao ) {
-		this.addressDao = addressDao;
-	}
-	
-	public void setPersonAddressDao( PersonAddressDao personAddressDao ) {
-		this.personAddressDao = personAddressDao;
-	}
-	
-	public List<PersonAddress> getAddresses(long person_id) {
-		return personAddressDao.getAddresses(person_id);
+	public void setMailboxDao( MailboxDao mailboxDao ) {
+        this.mailboxDao = mailboxDao;
     }
 	
-	public List<PersonAddress> getPersons(long address_id) {
-	    return personAddressDao.getPersons(address_id);
+	public void setPersonMailboxDao( PersonMailboxDao personMailboxDao ) {
+		this.personMailboxDao = personMailboxDao;
 	}
 	
-	public PersonAddress assignAddress(long person_id, long address_id) {
-	    return assignAddress( person_id, address_id, Boolean.FALSE);
+	public List<PersonMailbox> getMailboxes(long person_id) {
+		return personMailboxDao.getAddresses(person_id);
+    }
+	
+	public List<PersonMailbox> getPersons(long mailbox_id) {
+        return personMailboxDao.getPersons(mailbox_id);
+    }
+	
+	public PersonMailbox assignPrimaryMailbox(long person_id, long mailbox_id) {
+	    return assignMailbox( person_id, mailbox_id, Boolean.TRUE);
 	}
 	
-    public PersonAddress assignAddress(long person_id, long address_id, Boolean isOwner) {
+	public PersonMailbox assignSecondaryMailbox(long person_id, long mailbox_id) {
+        return assignMailbox( person_id, mailbox_id, Boolean.FALSE);
+    }
+	
+    public PersonMailbox assignMailbox(long person_id, long mailbox_id, Boolean isOwner) {
         if ( isOwner == null ) {
             isOwner = Boolean.FALSE;
         }
         
-    	List<PersonAddress> persons = personAddressDao.getPersons(address_id);
+    	List<PersonMailbox> persons = personMailboxDao.getPersons(mailbox_id);
     	
     	if ( persons != null && !persons.isEmpty() ) {
-            for ( PersonAddress _person : persons ) {
+            for ( PersonMailbox _person : persons ) {
                 if ( _person.getPerson().getId() == person_id ) {
-                    throw new RuntimeException("This address is already assigned to this person!");
+                    throw new RuntimeException("This mailbox is already assigned to this person!");
                 }
                 
                 if ( isOwner && _person.isOwner() ) {
-                    throw new RuntimeException("This address already has an owner!");
+                    throw new RuntimeException("This mailbox already has an owner!");
                 }
             }
         }
     	
     	Person person = mainDao.load(person_id);
-        Address address = addressDao.load(address_id);
-    	
+    	Mailbox mailbox = mailboxDao.load(mailbox_id);
+        
     	Date now = new Date();
-    	PersonAddress personAddress = new PersonAddress(person, address, isOwner, now, null);
+    	PersonMailbox personAddress = new PersonMailbox(person, mailbox, isOwner, now, null);
     	
-    	personAddressDao.persist( personAddress );
+    	personMailboxDao.persist( personAddress );
     	
     	return personAddress;
     }
     
-    public void unassignAddress(long person_id, long address_id) {
-        List<PersonAddress> pa = getPersons(address_id);
+    public void unassignMailbox(long person_id, long mailbox_id) {
+        List<PersonMailbox> pa = getPersons(mailbox_id);
         
-        PersonAddress relationToDelete = null;
+        PersonMailbox relationToDelete = null;
         if ( pa != null && !pa.isEmpty() ) {
-            for ( PersonAddress person : pa ) {
+            for ( PersonMailbox person : pa ) {
                 if ( person.getPerson().getId() == person_id ) {
                     relationToDelete = person;
                     break;
@@ -82,7 +85,7 @@ public class PersonBoImpl extends BaseBoImpl<Person, PersonDao> implements Perso
         }
         
         if ( relationToDelete != null ) {
-            personAddressDao.delete(relationToDelete);
+            personMailboxDao.delete(relationToDelete);
         } else {
             throw new RuntimeException("This address is not assigned to this person");
         }

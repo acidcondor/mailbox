@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="org.benjob.smartmailbox.model.Transaction" table="TRANSACTIONS">
+  <id column="ID" name="id" type="long">
+   <generator class="native">
+    <param name="sequence">TRANSACTIONS_SEQ</param>
+   </generator>
+  </id>
+  <many-to-one class="org.benjob.smartmailbox.model.Parcel"
+   column="PARCEL_ID" name="Parcel"/>
+  <many-to-one class="org.benjob.smartmailbox.model.Mailbox"
+   column="MAILBOX_ID" name="Mailbox"/>
+  <property column="DATE" name="Date" type="date"/>
+ </class>
+</hibernate-mapping>

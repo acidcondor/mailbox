@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="org.benjob.smartmailbox.model.Mailbox" table="MAILBOXES">
+  <id column="ID" name="id" type="long">
+   <generator class="native">
+    <param name="sequence">MAILBOXES_SEQ</param>
+   </generator>
+  </id>
+  <natural-id>
+   <many-to-one class="org.benjob.smartmailbox.model.Address"
+    column="ADDRESS_ID" name="Address" not-null="true"/>
+   <property name="Number" not-null="true" type="integer">
+    <column default="0" name="NUMBER"/>
+   </property>
+  </natural-id>
+  <property column="INTERNET_ADDRESS" name="InternetAddress" type="string"/>
+ </class>
+</hibernate-mapping>

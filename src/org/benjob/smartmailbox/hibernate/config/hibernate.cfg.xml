@@ -30,8 +30,12 @@
         <!-- end of debug -->
         
         <mapping resource="org/benjob/smartmailbox/hibernate/mappings/Address.hbm.xml" />
+        <mapping resource="org/benjob/smartmailbox/hibernate/mappings/Mailbox.hbm.xml" />
+        <mapping resource="org/benjob/smartmailbox/hibernate/mappings/Parcel.hbm.xml" />
         <mapping resource="org/benjob/smartmailbox/hibernate/mappings/Person.hbm.xml" />
-        <mapping resource="org/benjob/smartmailbox/hibernate/mappings/PersonAddress.hbm.xml" />
+        <mapping resource="org/benjob/smartmailbox/hibernate/mappings/PersonMailbox.hbm.xml" />
+        <mapping resource="org/benjob/smartmailbox/hibernate/mappings/PostOffice.hbm.xml" />
+        <mapping resource="org/benjob/smartmailbox/hibernate/mappings/Transaction.hbm.xml" />
 
     </session-factory>
 </hibernate-configuration>

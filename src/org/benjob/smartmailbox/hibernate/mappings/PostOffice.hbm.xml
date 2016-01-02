@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="org.benjob.smartmailbox.model.PostOffice" table="POST_OFFICES">
+  <id column="ID" name="id" type="long">
+   <generator class="native">
+    <param name="sequence">POST_OFFICES_SEQ</param>
+   </generator>
+  </id>
+  <property column="STREET" name="Street" type="string"/>
+  <property column="CITY" name="City" type="string"/>
+  <property column="STATE" name="State" type="string"/>
+  <property column="COUNTRY" name="Country" type="string"/>
+  <property column="ZIP_CODE" name="ZipCode" type="integer"/>
+ </class>
+</hibernate-mapping>

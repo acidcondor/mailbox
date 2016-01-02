@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="org.benjob.smartmailbox.model.Parcel" table="PARCELS">
+  <id column="ID" name="id" type="long">
+   <generator class="native">
+    <param name="sequence">ITEMS_SEQ</param>
+   </generator>
+  </id>
+  <many-to-one class="org.benjob.smartmailbox.model.Person"
+   column="RECIPIENT_ID" name="Recipient"/>
+ </class>
+</hibernate-mapping>

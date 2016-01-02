@@ -2,7 +2,7 @@ package org.benjob.smartmailbox.dao;
 import java.util.List;
 
 // Generated Dec 22, 2015 12:11:09 PM by Hibernate Tools 4.3.1.Final
-import org.benjob.smartmailbox.model.PersonAddress;
+import org.benjob.smartmailbox.model.PersonMailbox;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
@@ -12,15 +12,15 @@ import org.hibernate.criterion.Restrictions;
  * @see org.benjob.smartmailbox.model.PersonAddress
  * @author Hibernate Tools
  */
-public class PersonAddressDaoImpl extends BaseDaoImpl<PersonAddress> implements PersonAddressDao {
+public class PersonMailboxDaoImpl extends BaseDaoImpl<PersonMailbox> implements PersonMailboxDao {
 
-    public PersonAddressDaoImpl() {
-        super( PersonAddress.class );
+    public PersonMailboxDaoImpl() {
+        super( PersonMailbox.class );
     }
     
     @SuppressWarnings("unchecked")
-	public List<PersonAddress> getAddresses(Long person_id) {
-    	Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonAddress.class);
+	public List<PersonMailbox> getAddresses(Long person_id) {
+    	Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonMailbox.class);
     	
     	criteria.add(Restrictions.eq("Person.id", person_id));
     	criteria.setFetchMode("Address", FetchMode.JOIN);
@@ -44,8 +44,8 @@ public class PersonAddressDaoImpl extends BaseDaoImpl<PersonAddress> implements 
     }
     
     @SuppressWarnings("unchecked")
-    public List<PersonAddress> getPersons(Long address_id) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonAddress.class);
+    public List<PersonMailbox> getPersons(Long address_id) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonMailbox.class);
         
         criteria.add(Restrictions.eq("Address.id", address_id));
         criteria.setFetchMode("Person", FetchMode.JOIN);
