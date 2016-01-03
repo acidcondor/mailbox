@@ -24,7 +24,7 @@ public class PersonService {
     @Autowired
     PersonBo personBo;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Person createPerson(@RequestBody Person person) {
         try {
             personBo.create(person);

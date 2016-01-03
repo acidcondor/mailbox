@@ -10,6 +10,7 @@ public class Parcel implements java.io.Serializable {
     
     private long id;
     private Person Recipient;
+    private String Status;
 
     public Parcel() {
     }
@@ -32,6 +33,14 @@ public class Parcel implements java.io.Serializable {
 
     public void setRecipient(Person Recipient) {
         this.Recipient = Recipient;
+    }
+    
+    public String getStatus() {
+        return this.Status;
+    }
+    
+    public void setStatus( String status ) {
+        this.Status = status;
     }
 
 }

@@ -1,6 +1,6 @@
 create table ADDRESSES (ID bigint not null auto_increment, STREET varchar(255), CITY varchar(255), STATE varchar(255), ZIP_CODE integer, UNIT varchar(255), COUNTRY varchar(255), MAILBOX_ADDRESS varchar(255), primary key (ID)) ENGINE=InnoDB;
 create table MAILBOXES (ID bigint not null auto_increment, ADDRESS_ID bigint not null, NUMBER integer default 0 not null, INTERNET_ADDRESS varchar(255), primary key (ID)) ENGINE=InnoDB;
-create table PARCELS (ID bigint not null auto_increment, RECIPIENT_ID bigint, primary key (ID)) ENGINE=InnoDB;
+create table PARCELS (ID bigint not null auto_increment, RECIPIENT_ID bigint, STATUS varchar(255) default POSTED, primary key (ID)) ENGINE=InnoDB;
 create table PERSONS (ID bigint not null auto_increment, FIRSTNAME varchar(255), MIDDLENAME varchar(255), LASTNAME varchar(255), PHONE_NUMBER varchar(255), PUBLIC_KEY varchar(255), primary key (ID)) ENGINE=InnoDB;
 create table PERSON_MAILBOXES (ID bigint not null auto_increment, PERSON_ID bigint not null, MAILBOX_ID bigint not null, IS_OWNER bit, START_DATE date, END_DATE date, primary key (ID)) ENGINE=InnoDB;
 create table POST_OFFICES (ID bigint not null auto_increment, STREET varchar(255), CITY varchar(255), STATE varchar(255), COUNTRY varchar(255), ZIP_CODE integer, primary key (ID)) ENGINE=InnoDB;

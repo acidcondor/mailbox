@@ -1,5 +1,8 @@
 package org.benjob.smartmailbox.rest;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.benjob.smartmailbox.bo.MailboxBo;
 import org.benjob.smartmailbox.model.Address;
 import org.benjob.smartmailbox.model.Mailbox;
@@ -22,7 +25,7 @@ public class MailboxService {
     @Autowired
     MailboxBo mailboxBo;
     
-    @RequestMapping(value = "/create/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create/{id}", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Mailbox addMailbox(@RequestBody Mailbox mailbox, @PathVariable("id") long address_id) {
         try {
             mailboxBo.create(mailbox, address_id);
@@ -47,6 +50,30 @@ public class MailboxService {
         }
         
         return mailbox;
+    }
+    
+    @RequestMapping(value = "/lock/{phoneNumber}", method = RequestMethod.GET)
+    public void lockMailbox(@PathVariable("phoneNumber") long phoneNumber) {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://192.168.2.1:8080/omnipi/http/monitor/mailbox/" + phoneNumber + "/locked");
+    
+            httpClient.execute(request);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value = "/unlock/{phoneNumber}", method = RequestMethod.GET)
+    public void unlockMailbox(@PathVariable("phoneNumber") long phoneNumber) {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://192.168.2.1:8080/omnipi/http/monitor/mailbox/" + phoneNumber + "/unlocked");
+    
+            httpClient.execute(request);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}/address", method = RequestMethod.GET)

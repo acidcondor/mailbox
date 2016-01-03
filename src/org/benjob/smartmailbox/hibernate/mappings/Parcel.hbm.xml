@@ -10,5 +10,8 @@
   </id>
   <many-to-one class="org.benjob.smartmailbox.model.Person"
    column="RECIPIENT_ID" name="Recipient"/>
+  <property name="Status" type="string">
+   <column default="POSTED" name="STATUS"/>
+  </property>
  </class>
 </hibernate-mapping>

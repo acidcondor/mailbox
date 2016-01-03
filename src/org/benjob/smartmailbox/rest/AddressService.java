@@ -24,7 +24,7 @@ public class AddressService {
 	@Autowired
     AddressBo addressBo;
 	
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody Address createAddress(@RequestBody Address address) {
         try {
             addressBo.create(address);

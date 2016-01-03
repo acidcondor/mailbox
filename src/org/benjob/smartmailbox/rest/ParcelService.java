@@ -1,7 +1,6 @@
 package org.benjob.smartmailbox.rest;
 
 import org.benjob.smartmailbox.bo.ParcelBo;
-import org.benjob.smartmailbox.bo.PersonBo;
 import org.benjob.smartmailbox.model.Parcel;
 import org.benjob.smartmailbox.model.Status;
 import org.benjob.smartmailbox.rest.exceptions.InternalErrorException;
@@ -21,11 +20,8 @@ public class ParcelService {
     
     @Autowired
     ParcelBo parcelBo;
-    
-    @Autowired 
-    PersonBo personBo;
 
-    @RequestMapping(value = "/create/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create/{id}", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE} )
     public @ResponseBody Parcel createParcel(@PathVariable("id") long person_id, @RequestBody Parcel parcel) {
         try {
             parcelBo.create(parcel, person_id);
@@ -51,6 +47,28 @@ public class ParcelService {
         
         return parcel;
     }
+    
+    @RequestMapping(value = "/{id}/{status}", method = RequestMethod.GET)
+    public @ResponseBody Parcel updateParcelStatus(@PathVariable("id") long id, @PathVariable("status") String status) {
+        Parcel parcel = null;
+        try {
+            parcel = parcelBo.getById(id);
+            
+            if ( parcel != null ) {
+                parcel.setStatus( status );
+                parcelBo.update(parcel);
+            }
+            
+        } catch (Exception e) {
+            throw new InternalErrorException();
+        }
+        
+        if ( parcel == null ) {
+            throw new ResourceNotFoundException();
+        }
+        
+        return parcel;
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public @ResponseBody Status deleteParcel(@PathVariable("id") long id) {
@@ -62,5 +80,4 @@ public class ParcelService {
         }
 
     }
-
 }
